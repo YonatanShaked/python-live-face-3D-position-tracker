@@ -1,0 +1,5 @@
+data/lbfmodel.yaml filter=lfs diff=lfs merge=lfs -text
+data/glasses.obj filter=lfs diff=lfs merge=lfs -text
+data/hat.obj filter=lfs diff=lfs merge=lfs -text
+data/head.obj filter=lfs diff=lfs merge=lfs -text
+data/haarcascade_frontalface_default.xml filter=lfs diff=lfs merge=lfs -text
