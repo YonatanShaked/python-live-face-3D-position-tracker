@@ -37,7 +37,7 @@ This repository contains a Python application for augmented reality (AR) using a
 2. Run the application:
 
     ```bash
-    python webcam_ar.py
+    python main.py
     ```
 
 3. Interact with the application:
