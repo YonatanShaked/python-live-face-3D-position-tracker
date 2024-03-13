@@ -4,31 +4,16 @@ This repository contains a Python application for augmented reality (AR) using a
 
 ## Prerequisites
 
-- Python 3.x
 - OpenCV (`cv2`)
 - NumPy
 - Pillow (`PIL`)
 - Tkinter
 
-## Installation
+Install the dependencies:
 
-1. Clone the repository:
-
-    ```bash
-    git clone <repository_url>
-    ```
-
-2. Navigate to the project directory:
-
-    ```bash
-    cd <project_directory>
-    ```
-
-3. Install the dependencies:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
@@ -44,7 +29,7 @@ This repository contains a Python application for augmented reality (AR) using a
     - Press 'q' to quit the application.
     - Press 'd' to toggle debug mode (showing face detection and landmarks).
     - Press 'l' to toggle low-pass filtering for smoother object tracking.
-    - Press '1', '2', or '3' to switch between different 3D objects (glasses, hats, head).
+    - Press '1', '2', or '3' to switch between different 3D objects (glasses, hat, head).
 
 ## License
 
