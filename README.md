@@ -22,7 +22,7 @@ pip install -r requirements.txt
 2. Run the application:
 
     ```bash
-    python main.py
+    python tracker.py
     ```
 
 3. Interact with the application:
