@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-import os
 import cv2 as cv
 import numpy as np
 import tkinter as tk
+from pathlib import Path
 from PIL import Image, ImageTk
 
 
@@ -62,11 +62,11 @@ class WebcamApp:
         self.frame_rate = int(self.vid.get(cv.CAP_PROP_FPS))
         print(f'Camera Parameters: Width = {self.width}, Height = {self.height}, Frame rate = {self.frame_rate}')
 
-        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-        self.face_cascade = cv.CascadeClassifier(os.path.join(data_dir, 'haarcascade_frontalface_default.xml'))
+        self.data_dir = Path(__file__).resolve().parent / 'data'
+        self.face_cascade = cv.CascadeClassifier(str(self.data_dir / 'haarcascade_frontalface_default.xml'))
         self.facemark = cv.face.createFacemarkLBF()
-        self.facemark.loadModel(os.path.join(data_dir, 'lbfmodel.yaml'))
-        self.obj = OBJ(os.path.join(data_dir, 'glasses.obj'), swap_yz=True)
+        self.facemark.loadModel(str(self.data_dir / 'lbfmodel.yaml'))
+        self.obj = OBJ(str(self.data_dir / 'glasses.obj'), swap_yz=True)
 
         self.camera_matrix = np.eye(3, 3, dtype=np.float64)
         self.camera_matrix[0, 0] = self.height
@@ -82,7 +82,7 @@ class WebcamApp:
             [0, -4.47894, 17.73010],          # nose tip 30
             [-4.61960, -10.14360, 12.27940],  # right mouth corner 48
             [4.61960, -10.14360, 12.27940]    # left mouth corner 54
-        ])
+            ])
 
         self.object_points_ids = [45, 36, 30, 48, 54]
 
@@ -177,11 +177,11 @@ class WebcamApp:
         elif event.char == 'l':
             self.lpf_enabled = not self.lpf_enabled
         elif event.char == '1':
-            self.obj = OBJ(os.path.join('data', 'glasses.obj'), swap_yz=True)
+            self.obj = OBJ(str(self.data_dir / 'glasses.obj'), swap_yz=True)
         elif event.char == '2':
-            self.obj = OBJ(os.path.join('data', 'hat.obj'), swap_yz=True)
+            self.obj = OBJ(str(self.data_dir / 'hat.obj'), swap_yz=True)
         elif event.char == '3':
-            self.obj = OBJ(os.path.join('data', 'head.obj'), swap_yz=True)
+            self.obj = OBJ(str(self.data_dir / 'head.obj'), swap_yz=True)
 
 
 def main():
