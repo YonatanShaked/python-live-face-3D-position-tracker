@@ -7,10 +7,10 @@ from PIL import Image, ImageTk
 
 
 class OBJ:
-    def __init__(self, filename, swapyz=False):
+    def __init__(self, filename, swap_yz=False):
         self.vertices = []
         self.normals = []
-        self.texcoords = []
+        self.tex_coords = []
         self.faces = []
         print(f'loading obj model from: {filename}')
         for line in open(filename, "r"):
@@ -21,32 +21,32 @@ class OBJ:
                 continue
             if values[0] == 'v':
                 v = list(map(float, values[1:4]))
-                if swapyz:
+                if swap_yz:
                     v = v[0], v[2], v[1]
                 self.vertices.append(v)
             elif values[0] == 'vn':
                 v = list(map(float, values[1:4]))
-                if swapyz:
+                if swap_yz:
                     v = v[0], v[2], v[1]
                 self.normals.append(v)
             elif values[0] == 'vt':
-                self.texcoords.append(map(float, values[1:3]))
+                self.tex_coords.append(map(float, values[1:3]))
             elif values[0] == 'f':
                 face = []
-                texcoords = []
+                tex_coords = []
                 norms = []
                 for v in values[1:]:
                     w = v.split('/')
                     face.append(int(w[0]))
                     if len(w) >= 2 and len(w[1]) > 0:
-                        texcoords.append(int(w[1]))
+                        tex_coords.append(int(w[1]))
                     else:
-                        texcoords.append(0)
+                        tex_coords.append(0)
                     if len(w) >= 3 and len(w[2]) > 0:
                         norms.append(int(w[2]))
                     else:
                         norms.append(0)
-                self.faces.append((face, norms, texcoords))
+                self.faces.append((face, norms, tex_coords))
 
 
 class WebcamApp:
@@ -66,7 +66,7 @@ class WebcamApp:
         self.face_cascade = cv.CascadeClassifier(os.path.join(data_dir, 'haarcascade_frontalface_default.xml'))
         self.facemark = cv.face.createFacemarkLBF()
         self.facemark.loadModel(os.path.join(data_dir, 'lbfmodel.yaml'))
-        self.obj = OBJ(os.path.join(data_dir, 'glasses.obj'), swapyz=True)
+        self.obj = OBJ(os.path.join(data_dir, 'glasses.obj'), swap_yz=True)
 
         self.camera_matrix = np.eye(3, 3, dtype=np.float64)
         self.camera_matrix[0, 0] = self.height
@@ -177,11 +177,11 @@ class WebcamApp:
         elif event.char == 'l':
             self.lpf_enabled = not self.lpf_enabled
         elif event.char == '1':
-            self.obj = OBJ(os.path.join('data', 'glasses.obj'), swapyz=True)
+            self.obj = OBJ(os.path.join('data', 'glasses.obj'), swap_yz=True)
         elif event.char == '2':
-            self.obj = OBJ(os.path.join('data', 'hat.obj'), swapyz=True)
+            self.obj = OBJ(os.path.join('data', 'hat.obj'), swap_yz=True)
         elif event.char == '3':
-            self.obj = OBJ(os.path.join('data', 'head.obj'), swapyz=True)
+            self.obj = OBJ(os.path.join('data', 'head.obj'), swap_yz=True)
 
 
 def main():
